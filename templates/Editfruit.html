@@ -1,0 +1,58 @@
+{% include 'header.html' %}
+
+<main id="main" class="main">
+    <script>
+        function previewImage(event){
+            var reader= new FileReader();
+            reader.onload = function() {
+                var img = document.getElementById('gambar-preview');
+                img.src = reader.result;
+
+            }
+            reader.readAsDataURL(event.target.files[0])
+        }
+    </script>
+    <div class="pagetitle">
+        <h1>Edit Fruits</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Fruits</a></li>
+                <li class="breadcrumb-item active">Edit Fruits</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+    <br>
+    <div class="card border-0 shadow mb-4 ">
+        <div class="card-body mt-4">
+            <div class="table-responsive">
+                <form action="/Editfruit/{{data[0]._id}}" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="fruitsName" class="form-label">Fruits Name</label>
+                        <input type="text" class="form-control"  id="fruitsName" name="nama" style="border-radius: 13px;"
+                            value="{{ data[0].nama }}" placeholder="Enter the Fruits Name" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price</label>
+                        <input type="text" class="form-control" id="price" name="harga" style="border-radius: 13px;"
+                            placeholder="Enter the Price" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image</label>
+                        <img id="gambar-preview" src="/static/assets/imgfruit/{{ data[0].gambar }}" alt="" width="100" id="gambar-preview" >
+                        <input type="file" class="form-control" id="image" accept=".png,.jpg,.jpeg" name="gambar" onchange="previewImage(event)"
+                            style="border-radius: 13px;" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="descriptionProduct" class="form-label">Description Product</label>
+                        <textarea class="form-control" id="descriptionProduct" name="deskripsi" style="border-radius: 13px;"
+                            placeholder="Enter the Description of Product" required>{{ data[0].deskripsi }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-danger">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main><!-- End #main -->
+{% include 'footer.html' %}
